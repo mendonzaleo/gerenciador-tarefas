@@ -1,50 +1,49 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
 </h:head>
 <h:body>
     <h:form>
-        <p:panel header="Cadastrar Tarefa" style="width:500px; margin:auto;">
+        <h:panelGroup header="Cadastrar Tarefa" style="width:500px; margin:auto;">
             <h:panelGrid columns="2" cellpadding="5">
 
                 <!-- Título -->
                 <h:outputLabel for="titulo" value="Título:" />
-                <p:inputText id="titulo" value="#{tarefaBean.tarefas.titulo}" style="width:100%;" />
+                <h:inputTextarea id="titulo" value="#{tarefaBean.tarefa.titulo}" style="width:100%;" />
 
                 <!-- Descrição -->
                 <h:outputLabel for="descricao" value="Descrição:" />
-                <p:inputTextarea id="descricao" value="#{tarefaBean.tarefas.descricao}" style="width:100%;" autoResize="false" rows="4" />
+                <h:inputTextarea id="descricao" value="#{tarefaBean.tarefa.descricao}" style="width:100%;" autoResize="false" rows="4" />
 
                 <!-- Responsável -->
                 <h:outputLabel for="responsavel" value="Responsável:" />
-                <p:selectOneMenu id="responsavel" value="#{tarefaBean.tarefas.responsavel}">
-                    <f:selectItem itemLabel="Select" itemValue="" />
-                    <f:selectItems value="#{tarefaBean.tarefas.responsavel}" var="responsavel" itemLabel="#{responsavel.nome}" itemValue="#{responsavel}" />
-                </p:selectOneMenu>
+                <h:selectOneMenu id="responsavel" value="#{tarefaBean.tarefa.responsavel}">
+                    <f:selectItem itemLabel="Select" itemValue=""/>
+                    <f:selectItems value="#{tarefaBean.responsavel}" var="responsavel" itemLabel="#{responsavel.descricao}" itemValue="#{responsavel}" />
+                </h:selectOneMenu>
 
                 <!-- Prioridade -->
                 <h:outputLabel for="prioridade" value="Prioridade:" />
-                <p:selectOneMenu id="prioridade" value="#{tarefaBean.tarefas.prioridade}">
+                <h:selectOneMenu id="prioridade" value="#{tarefaBean.tarefa.prioridades}">
                     <f:selectItem itemLabel="Select" itemValue="" />
                     <f:selectItems value="#{tarefaBean.prioridades}" var="prioridade" itemLabel="#{prioridade.descricao}" itemValue="#{prioridade}"/>
-                </p:selectOneMenu>
+                </h:selectOneMenu>
 
                 <!-- Deadline -->
                 <h:outputLabel for="deadline" value="Deadline:" />
-                <p:calendar id="deadline" value="#{tarefaBean.tarefas.deadline}" pattern="yyyy/MM/dd" showIcon="true" />
+                <h:inputText id="deadline" value="#{tarefaBean.tarefa.deadline}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:inputText>
 
             </h:panelGrid>
 
             <!-- Botão de Cadastrar -->
-            <p:commandButton value="Cadastrar" actionListener="#{tarefaBean.salvarTarefa()}" update="@form" style="margin-top:15px;" />
+            <h:commandButton value="Cadastrar" actionListener="#{tarefaBean.salvarTarefa(tarefaBean)}" update="@form" style="margin-top:15px;" />
 
-        </p:panel>
+        </h:panelGroup>
     </h:form>
 </h:body>
 </html>

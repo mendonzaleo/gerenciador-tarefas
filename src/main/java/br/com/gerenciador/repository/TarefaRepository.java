@@ -2,30 +2,39 @@ package br.com.gerenciador.repository;
 
 import br.com.gerenciador.model.Tarefa;
 import br.com.gerenciador.util.Transacional;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-@ApplicationScoped
+@Named
+@RequestScoped
 public class TarefaRepository implements Serializable {
     @Serial
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
 
-    String termo;
 
     @Inject
     private EntityManager manager;
+
+    public TarefaRepository() {}
+
+
+    public TarefaRepository(EntityManager manager) {
+        this.manager = manager;
+    }
 
     public Tarefa porId(long id) {
         return manager.find(Tarefa.class, id);
     }
 
-    public List<Tarefa> pesquisar(){
-        TypedQuery<Tarefa> query = manager.createQuery("FROM Tarefa t WHERE t.titulo LIKE :termo OR t.descricao LIKE :termo", Tarefa.class);
+    public List<Tarefa> pesquisar(String termo){
+        String jpql = "FROM Tarefa t WHERE t.titulo LIKE :termo OR t.descricao LIKE :termo";
+        TypedQuery<Tarefa> query = manager.createQuery(jpql, Tarefa.class);
         query.setParameter("termo", "%" + termo + "%");
         return query.getResultList();
     }

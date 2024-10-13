@@ -6,7 +6,7 @@ public enum Prioridade {
     MEDIA("MEDIA"),
     BAIXA("BAIXA");
 
-    private final String descricao;
+    private String descricao;
 
     Prioridade(String descricao) {
         this.descricao = descricao;

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
 
 
@@ -24,11 +25,9 @@ public class Tarefa implements Serializable {
     @Column(nullable = false, length = 120)
     private String descricao;
 
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 3)
     Responsavel responsavel;
-
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -41,10 +40,6 @@ public class Tarefa implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTitulo() {
